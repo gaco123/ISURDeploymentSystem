@@ -1,0 +1,19 @@
+name: CI ISUR Evaluacion
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v3
+
+      - name: Construir imagen
+        run: docker build -t isur-app .
+
+      - name: Ejecutar contenedor
+        run: docker run -d -p 8080:80 isur-app
