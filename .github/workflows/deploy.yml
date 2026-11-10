@@ -64,7 +64,7 @@ jobs:
           ssh -o StrictHostKeyChecking=yes "$VM_USER@$VM_HOST" \
             "DEPLOY_SHA='$DEPLOY_SHA' bash -se" <<'REMOTE'
           set -euo pipefail
-          cd "$HOME/apps/isur-deployment-app"
+          cd "$HOME/apps/ISURDeploymentSystem"
           git fetch origin main
           git checkout -f "$DEPLOY_SHA"
           docker compose -f compose.yaml config --quiet
