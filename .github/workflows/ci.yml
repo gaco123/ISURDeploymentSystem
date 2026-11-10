@@ -13,8 +13,12 @@ jobs:
       - name: Construir imagen Docker
         run: docker build -t isur-deployment-app .
 
+      - name: Crear variables no sensibles para validacion
+        run: |
+          printf 'APP_DOMAIN=example.com\nMYSQL_ROOT_PASSWORD=solo-para-ci-no-publicar\n' > .env
+
       - name: Validar Docker Compose
-        run: docker compose config
+        run: docker compose -f compose.yaml --env-file .env config --quiet
 
       - name: Levantar servicios
         run: docker compose up -d
